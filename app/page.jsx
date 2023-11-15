@@ -1,5 +1,3 @@
-"use client";
-
 import RecordingInput from "./components/RecordingInput";
 
 const Home = () => {

@@ -19,12 +19,13 @@ const RecordingInput = () => {
 
         // event handler for speech recognition results
         speechRecognition.current.onresult = (event) => {
-            const { output } = event.results[event.results.length - 1][0];
+            const result =
+                event.results[event.results.length - 1][0].transcript;
 
             // log the recognition results and update the output state
             // todo: remove log
             console.log(event.results);
-            setOutput(output);
+            setOutput(result);
         };
 
         //start the speech recognition

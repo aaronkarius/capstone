@@ -11,6 +11,7 @@ const RecordingInput = () => {
 
     const startRecording = () => {
         setIsRecording(true);
+
         // create a new SpeechRecognition instance and configure it
         speechRecognition.current = new window.webkitSpeechRecognition();
         speechRecognition.current.continuous = true;
@@ -41,21 +42,12 @@ const RecordingInput = () => {
     }, []);
 
     const stopRecording = () => {
+        setIsRecording(false);
+
         if (speechRecognition.current) {
             // stop the speech recognition and mark recording as complete
             speechRecognition.current.stop();
         }
-    };
-
-    // toggle recording state and manage recording actions
-    const handleToggleRecording = () => {
-        if (!isRecording) {
-            startRecording();
-        } else {
-            stopRecording();
-        }
-
-        setIsRecording(!isRecording);
     };
 
     return (
@@ -90,7 +82,7 @@ const RecordingInput = () => {
                 {isRecording ? (
                     // button for stopping recording
                     <button
-                        onClick={handleToggleRecording}
+                        onClick={() => stopRecording()}
                         className="flex items-center justify-center w-20 h-20 mt-10 bg-red-400 rounded-full hover:bg-red-500"
                     >
                         <svg
@@ -104,7 +96,7 @@ const RecordingInput = () => {
                 ) : (
                     // button for starting recording
                     <button
-                        onClick={handleToggleRecording}
+                        onClick={() => startRecording()}
                         className="flex items-center justify-center w-20 h-20 mt-10 bg-blue-400 rounded-full hover:bg-blue-500"
                     >
                         <svg

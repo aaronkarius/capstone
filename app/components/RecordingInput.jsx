@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-const RecordingInput = () => {
+const RecordingInput = (label = "") => {
     // state variables to manage recording status, completion, and output
     const [isRecording, setIsRecording] = React.useState(false);
     const [output, setOutput] = React.useState("");
@@ -18,13 +18,21 @@ const RecordingInput = () => {
         speechRecognition.current.interimResults = true;
 
         // event handler for speech recognition results
-        speechRecognition.current.onresult = (event) => {
-            const { output } = event.results[event.results.length - 1][0];
+        speechRecognition.current.onresult = event => {
+            let results = "";
 
-            // log the recognition results and update the output state
-            // todo: remove log
-            console.log(event.results);
-            setOutput(output);
+            // check if the results were the final results, i.e., if the person stopped talking
+            // if so we are going to get the whole thing of results with an object foreach basically
+            // if not we are going to get the latest thing they've said
+            if (event.results[event.results.length - 1].isFinal) {
+                for (const [_, value] of Object.entries(event.results)) {
+                    results += value[0].transcript;
+                }
+            } else {
+                results = event.results[event.results.length - 1][0].transcript;
+            }
+
+            setOutput(results);
         };
 
         //start the speech recognition
@@ -51,39 +59,13 @@ const RecordingInput = () => {
     };
 
     return (
-        <div className="flex flex-col items-center w-full">
-            {(isRecording || output) && (
-                <div className="w-3/6 p-4 border rounded-md min-w-fit ">
-                    <div className="flex justify-between flex-1 w-full">
-                        <div>
-                            <div className="text-sm font-medium">
-                                {isRecording ? "Recording" : "Recorded"}
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                                {isRecording
-                                    ? "Start speaking..."
-                                    : "Thanks for talking."}
-                            </div>
-                        </div>
-                        {isRecording && (
-                            <div className="w-4 h-4 bg-red-400 rounded-full animate-pulse" />
-                        )}
-                    </div>
-
-                    {output && (
-                        <div className="flex p-2 mt-4 border rounded-md">
-                            {output}
-                        </div>
-                    )}
-                </div>
-            )}
-
-            <div className="flex items-center justify-center w-full">
+        <div className="flex items-center gap-4 w-min">
+            <div className="justify-center">
                 {isRecording ? (
                     // button for stopping recording
                     <button
                         onClick={() => stopRecording()}
-                        className="flex items-center justify-center w-20 h-20 mt-10 bg-red-400 rounded-full hover:bg-red-500"
+                        className="flex items-center justify-center w-20 h-20 bg-red-400 rounded-full hover:bg-red-500"
                     >
                         <svg
                             className="w-12 h-12 fill-white"
@@ -97,7 +79,7 @@ const RecordingInput = () => {
                     // button for starting recording
                     <button
                         onClick={() => startRecording()}
-                        className="flex items-center justify-center w-20 h-20 mt-10 bg-blue-400 rounded-full hover:bg-blue-500"
+                        className="flex items-center justify-center w-20 h-20 bg-blue-400 rounded-full hover:bg-blue-500"
                     >
                         <svg
                             viewBox="0 0 256 256"
@@ -109,6 +91,24 @@ const RecordingInput = () => {
                     </button>
                 )}
             </div>
+            {(isRecording || output) && (
+                <div className="flex items-center p-4 h-fit w-min">
+                    <div className="w-[25vw] max-h-24">
+                        {/* idk why label is an object */}
+                        <div>{label.label}</div>
+                        {output && (
+                            <div className="p-2 overflow-y-scroll border border-gray-500 rounded-md dark:border-gray-200 max-h-20">
+                                {output}
+                            </div>
+                        )}
+                    </div>
+                    {isRecording && (
+                        <div className="self-start p-4">
+                            <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse" />
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

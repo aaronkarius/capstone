@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./components/Providers";
-import DarkModeToggle from "./components/DarkModeToggle";
 import NavBar from "./components/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,7 +15,6 @@ const RootLayout = ({ children }) => {
         <html lang="en" suppressHydrationWarning>
             <body className={inter.className}>
                 <Providers>
-                    <DarkModeToggle />
                     <NavBar />
                     {children}
                 </Providers>

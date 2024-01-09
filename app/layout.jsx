@@ -1,7 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./components/Providers";
-import NavBar from "./components/NavBar";
+import Navbar from "./components/Navigation/Navbar";
+import Footer from "./components/Navigation/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,11 +13,12 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body className={inter.className}>
+        <html lang="en" suppressHydrationWarning className="h-full">
+            <body className={`${inter.className} h-full flex flex-col`}>
                 <Providers>
-                    <NavBar />
+                    <Navbar />
                     {children}
+                    <Footer />
                 </Providers>
             </body>
         </html>

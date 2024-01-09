@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import DarkModeToggle from "./DarkModeToggle";
+import DarkModeToggle from "../DarkModeToggle";
 
 const NavBar = () => {
     return (
@@ -12,40 +12,22 @@ const NavBar = () => {
                 </Link>
             </div>
             <div className="flex items-center gap-4 ml-auto sm:gap-6">
-                <Link
-                    className="text-sm font-medium hover:underline underline-offset-4"
-                    href="/TestPage"
-                >
+                <Link className="navbar-text" href="/test-page">
                     Test Page
                 </Link>
-                <Link
-                    className="text-sm font-medium hover:underline underline-offset-4"
-                    href="#"
-                >
+                <Link className="navbar-text" href="/login">
                     Login
                 </Link>
-                <Link
-                    className="text-sm font-medium hover:underline underline-offset-4"
-                    href="#"
-                >
+                <Link className="navbar-text" href="#">
                     Features
                 </Link>
-                <Link
-                    className="text-sm font-medium hover:underline underline-offset-4"
-                    href="#"
-                >
+                <Link className="navbar-text" href="#">
                     Pricing
                 </Link>
-                <Link
-                    className="text-sm font-medium hover:underline underline-offset-4"
-                    href="#"
-                >
+                <Link className="navbar-text" href="#">
                     About
                 </Link>
-                <Link
-                    className="text-sm font-medium hover:underline underline-offset-4"
-                    href="#"
-                >
+                <Link className="navbar-text" href="#">
                     Contact
                 </Link>
                 <DarkModeToggle />

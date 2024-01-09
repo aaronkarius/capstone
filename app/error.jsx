@@ -1,4 +1,4 @@
-"use server";
+"use client";
 import ErrorScreen from "./components/Fallbacks/ErrorScreen";
 
 const Error = () => {

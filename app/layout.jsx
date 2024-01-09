@@ -1,7 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./components/Providers";
-import NavBar from "./components/NavBar";
+import Navbar from "./components/Navigation/Navbar";
+import Footer from "./components/Navigation/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +16,9 @@ const RootLayout = ({ children }) => {
         <html lang="en" suppressHydrationWarning>
             <body className={inter.className}>
                 <Providers>
-                    <NavBar />
+                    <Navbar />
                     {children}
+                    <Footer />
                 </Providers>
             </body>
         </html>

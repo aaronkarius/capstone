@@ -23,3 +23,13 @@
         @apply inline-block px-3 py-1 text-sm bg-gray-100 rounded-lg dark:bg-gray-800;
     }
 }
+
+@layer components {
+    .footer-text {
+        @apply text-xs hover:underline underline-offset-4;
+    }
+
+    .navbar-text {
+        @apply text-sm font-medium hover:underline underline-offset-4;
+    }
+}

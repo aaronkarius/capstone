@@ -14,6 +14,12 @@ const NavBar = () => {
             <div className="flex items-center gap-4 ml-auto sm:gap-6">
                 <Link
                     className="text-sm font-medium hover:underline underline-offset-4"
+                    href="/TestPage"
+                >
+                    Test Page
+                </Link>
+                <Link
+                    className="text-sm font-medium hover:underline underline-offset-4"
                     href="#"
                 >
                     Login

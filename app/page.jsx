@@ -33,16 +33,16 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div class="intro-section">
-                <div class="intro-text-holder">
+            <div className="intro-section">
+                <div className="intro-text-holder">
                     <div className="space-y-2">
-                        <div class="intro-header-smaller-text">
+                        <div className="intro-header-smaller-text">
                             Appointment Management
                         </div>
-                        <h2 class="intro-header-text">
+                        <h2 className="intro-header-text">
                             Manage Your Schedule with Ease
                         </h2>
-                        <p class="intro-smaller-text">
+                        <p className="intro-smaller-text">
                             VetVoice&apos;s intuitive calendar view makes it
                             easy to see your upcoming appointments at a glance.
                             Schedule new appointments with just a few clicks.
@@ -57,7 +57,7 @@ const Home = () => {
                     width="100"
                 />
             </div>
-            <div class="intro-section">
+            <div className="intro-section">
                 <Image
                     alt="Image"
                     // className="object-cover object-center mx-auto overflow-hidden aspect-video rounded-xl sm:w-full"
@@ -65,15 +65,15 @@ const Home = () => {
                     src="/placeholder.svg"
                     width="100"
                 />
-                <div class="intro-text-holder">
+                <div className="intro-text-holder">
                     <div className="space-y-2">
-                        <div class="intro-header-smaller-text">
+                        <div className="intro-header-smaller-text">
                             Patient Records
                         </div>
-                        <h2 class="intro-header-text">
+                        <h2 className="intro-header-text">
                             Keep Track of Patient History
                         </h2>
-                        <p class="intro-smaller-text">
+                        <p className="intro-smaller-text">
                             Easily manage patient records, including medical
                             history, vaccinations, and treatments. All
                             information is stored securely and can be accessed
@@ -82,14 +82,16 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div class="intro-section">
-                <div class="intro-text-holder">
+            <div className="intro-section">
+                <div className="intro-text-holder">
                     <div className="space-y-2">
-                        <div class="intro-header-smaller-text">Analytics</div>
-                        <h2 class="intro-header-text">
+                        <div className="intro-header-smaller-text">
+                            Analytics
+                        </div>
+                        <h2 className="intro-header-text">
                             Make Data-Driven Decisions
                         </h2>
-                        <p class="intro-smaller-text">
+                        <p className="intro-smaller-text">
                             Powerful analytics and data visualizations to help
                             you track your practice&apos;s performance. Make
                             informed decisions to improve your services and
@@ -105,17 +107,17 @@ const Home = () => {
                     width="100"
                 />
             </div>
-            <div class="intro-section">
+            <div className="intro-section">
                 <RecordingInput label={"Patient Information"} />
-                <div class="intro-text-holder">
+                <div className="intro-text-holder">
                     <div className="space-y-2">
-                        <div class="intro-header-smaller-text">
+                        <div className="intro-header-smaller-text">
                             Voice Dictation
                         </div>
-                        <h2 class="intro-header-text">
+                        <h2 className="intro-header-text">
                             Save Time with Dictation
                         </h2>
-                        <p class="intro-smaller-text">
+                        <p className="intro-smaller-text">
                             VetVoice puts your time first. Patient information
                             can be filled out with the click of a button, allow
                             your voice to do the typing for you.

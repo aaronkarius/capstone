@@ -13,8 +13,8 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body className={inter.className}>
+        <html lang="en" suppressHydrationWarning className="h-full">
+            <body className={`${inter.className} h-full flex flex-col`}>
                 <Providers>
                     <Navbar />
                     {children}

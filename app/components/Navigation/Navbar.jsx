@@ -12,10 +12,10 @@ const NavBar = () => {
                 </Link>
             </div>
             <div className="flex items-center gap-4 ml-auto sm:gap-6">
-                <Link className="navbar-text" href="/TestPage">
+                <Link className="navbar-text" href="/test-page">
                     Test Page
                 </Link>
-                <Link className="navbar-text" href="#">
+                <Link className="navbar-text" href="/login">
                     Login
                 </Link>
                 <Link className="navbar-text" href="#">

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Login = () => {
     return (
-        <main className="flex flex-col items-center justify-center h-full px-4 py-8 bg-gray-100 grow dark:bg-gray-800 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center justify-center h-full px-4 py-8 bg-gray-100 grow dark:bg-gray-800 sm:px-6 lg:px-8">
             <div className="w-full max-w-md space-y-8">
                 <div>
                     <h2 className="mt-6 text-3xl font-extrabold text-center">
@@ -54,12 +54,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div>
-                        <button
-                            className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md dark:bg-indigo-500 dark:hover:bg-indigo-600 group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            type="submit"
-                        >
-                            Sign in
-                        </button>
+                        <button className="purple-button">Sign in</button>
                     </div>
                 </form>
                 <div className="text-sm text-center">
@@ -71,7 +66,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 

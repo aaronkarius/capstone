@@ -108,7 +108,13 @@ const Home = () => {
                 />
             </div>
             <div className="intro-section">
-                <RecordingInput label={"Patient Information"} />
+                <RecordingInput
+                    id="patientInfo"
+                    label="Patient Information"
+                    placeholder="Enter details manually or click the microphone to dictate. Words such as 'period' and 'comma' can be used to add punctuation."
+                    textarea
+                    inputProps="w-[25vw] h-[8vh]"
+                />
                 <div className="intro-text-holder">
                     <div className="space-y-2">
                         <div className="intro-header-smaller-text">

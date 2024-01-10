@@ -22,4 +22,27 @@
     .intro-header-smaller-text {
         @apply inline-block px-3 py-1 text-sm bg-gray-100 rounded-lg dark:bg-gray-800;
     }
+
+    .input {
+        /* have to add rounded manually after this */
+        @apply relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none dark:text-gray-200 dark:placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm;
+    }
+
+    .purple-text {
+        @apply font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400;
+    }
+
+    .purple-button {
+        @apply relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md dark:bg-indigo-500 dark:hover:bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+    }
+}
+
+@layer components {
+    .footer-text {
+        @apply text-xs hover:underline underline-offset-4;
+    }
+
+    .navbar-text {
+        @apply text-sm font-medium hover:underline underline-offset-4;
+    }
 }

@@ -21,7 +21,7 @@ const DarkModeToggle = () => {
                 theme === "dark" ? setTheme("light") : setTheme("dark")
             }
         >
-            {theme === "dark" ? <FaSun size={30} /> : <FaMoon size={30} />}
+            {theme === "dark" ? <FaSun size={25} /> : <FaMoon size={25} />}
         </button>
     );
 };

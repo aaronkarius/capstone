@@ -3,6 +3,7 @@ import RecordingInput from "../components/RecordingInput";
 import React from "react";
 
 const TestPage = () => {
+    // below is to handle being able to clear the recording components
     const [clearSwitch, setClearSwitch] = React.useState(false);
 
     const handleClear = () => {

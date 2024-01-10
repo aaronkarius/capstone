@@ -108,7 +108,13 @@ const Home = () => {
                 />
             </div>
             <div className="intro-section">
-                <RecordingInput label={"Patient Information"} />
+                <RecordingInput
+                    id="patientInfo"
+                    label="Patient Information"
+                    placeholder="Enter details manually or click the microphone to dictate. Words such as 'period' and 'comma' can be used to add punctuation."
+                    textarea
+                    inputProps="w-[25vw] h-[8vh]"
+                />
                 <div className="intro-text-holder">
                     <div className="space-y-2">
                         <div className="intro-header-smaller-text">
@@ -125,31 +131,6 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <footer className="flex flex-col items-center w-full gap-2 px-4 py-6 border-t sm:flex-row shrink-0 md:px-6">
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                    © VetVoice. All rights reserved.
-                </p>
-                <nav className="flex gap-4 sm:ml-auto sm:gap-6">
-                    <Link
-                        className="text-xs hover:underline underline-offset-4"
-                        href="#"
-                    >
-                        About Us
-                    </Link>
-                    <Link
-                        className="text-xs hover:underline underline-offset-4"
-                        href="#"
-                    >
-                        Contact
-                    </Link>
-                    <Link
-                        className="text-xs hover:underline underline-offset-4"
-                        href="#"
-                    >
-                        Privacy Policy
-                    </Link>
-                </nav>
-            </footer>
         </div>
     );
 };

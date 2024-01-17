@@ -1,6 +1,29 @@
 "use client";
 import RecordingInput from "../components/RecordingInput";
 import React from "react";
+import {PDFDocument, StandardFonts, rgb} from 'pdf-lib';
+// The following function uses unique functions from the pdf-lib library.
+//createPDF();
+function createPDF() { // This function generates a pdf.
+  
+        console.log("bam");
+
+    
+    /*
+    const pdfDoc = await PDFDocument.create();
+    const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+
+    const page = pdfDoc.addPage([350, 400]);
+    const {width, height} = page.getSize();
+    const fontSize = 50; // sets font size
+
+    page.drawText('Bam, there it is.');
+
+    const pdfBytes = await pdfDoc.save();
+    download(pdfBytes, "testFile");
+    //document.getElementById('pdf').src = pdfDataUri;
+*/
+}
 
 const TestPage = () => {
     // below is to handle being able to clear the recording components
@@ -9,8 +32,9 @@ const TestPage = () => {
     const handleClear = () => {
         setClearSwitch(!clearSwitch);
     };
-
+    
     return (
+        
         // keeping this in case we like full page design better
         // <div className="flex flex-col h-full gap-12 px-6 py-12 bg-gray-100 dark:bg-gray-800 md:px-8 lg:px-10 xl:px-12 md:py-24 lg:py-32">
         <div className="flex flex-col items-center justify-center h-full p-6 bg-gray-100 dark:bg-gray-800">
@@ -20,7 +44,7 @@ const TestPage = () => {
                 </h1>
                 <div className="flex flex-wrap gap-4">
                     <RecordingInput
-                        label="Owner Name"
+                        label="Owner Naaame"
                         placeholder="Jane Doe"
                         id="ownerName"
                         capitalize
@@ -65,15 +89,20 @@ const TestPage = () => {
                         clearSwitch={clearSwitch}
                     />
                 </div>
+                
                 <div className="flex flex-col gap-4">
-                    <button className="purple-button">Submit</button>
+                    
+                    <button className="purple-button" onClick={createPDF()}>submit</button> 
                     <button className="gray-button" onClick={handleClear}>
                         Clear
                     </button>
+                    
                 </div>
             </div>
         </div>
+        
     );
+    
 };
 
 export default TestPage;

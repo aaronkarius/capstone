@@ -1,6 +1,7 @@
 import RecordingInput from "./components/RecordingInput";
 import Image from "next/image";
 import Link from "next/link";
+import InvoiceForm from '../components/InvoiceForm';  // Import the InvoiceForm
 
 const Home = () => {
     return (
@@ -51,7 +52,6 @@ const Home = () => {
                 </div>
                 <Image
                     alt="Image"
-                    // className="object-cover object-center mx-auto overflow-hidden aspect-video rounded-xl sm:w-full lg:order-last"
                     height="100"
                     src="/placeholder.svg"
                     width="100"
@@ -60,7 +60,6 @@ const Home = () => {
             <div className="intro-section">
                 <Image
                     alt="Image"
-                    // className="object-cover object-center mx-auto overflow-hidden aspect-video rounded-xl sm:w-full"
                     height="100"
                     src="/placeholder.svg"
                     width="100"
@@ -101,7 +100,6 @@ const Home = () => {
                 </div>
                 <Image
                     alt="Image"
-                    // className="object-cover object-center mx-auto overflow-hidden aspect-video rounded-xl sm:w-full lg:order-last"
                     height="100"
                     src="/placeholder.svg"
                     width="100"
@@ -131,8 +129,14 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+
+            {/* InvoiceForm Component */}
+            <div className="my-10">
+                <InvoiceForm />
+            </div>
         </div>
     );
 };
 
 export default Home;
+

@@ -1,5 +1,5 @@
 "use client";
-import RecordingInput from "../components/RecordingInput";
+import RecordingInput from "../app/components/RecordingInput";
 import React from "react";
 
 const TestPage = () => {

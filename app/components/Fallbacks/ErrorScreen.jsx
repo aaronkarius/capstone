@@ -1,6 +1,6 @@
 const ErrorScreen = () => {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center bg-gray-100 dark:bg-gray-900 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center justify-center w-full h-full text-center bg-gray-100 dark:bg-gray-800">
             <AlertCircleIcon className="w-12 h-12 mx-auto text-red-500 dark:text-red-400" />
             <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-gray-100">
                 Oops! Something went wrong.

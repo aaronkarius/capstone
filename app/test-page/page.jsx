@@ -1,14 +1,40 @@
 "use client";
 import RecordingInput from "../components/RecordingInput";
-import React from "react";
+import { useTestStore } from "@/store/store";
+import React, { useCallback } from "react";
 
 const TestPage = () => {
     // below is to handle being able to clear the recording components
     const [clearSwitch, setClearSwitch] = React.useState(false);
-
     const handleClear = () => {
         setClearSwitch(!clearSwitch);
     };
+
+    const { ownerName, petName, species, reasonForVisit, additionalNotes } =
+        useTestStore(state => {
+            return {
+                ownerName: state.ownerName,
+                petName: state.petName,
+                species: state.species,
+                reasonForVisit: state.reasonForVisit,
+                additionalNotes: state.additionalNotes
+            };
+        });
+
+    const setField = useTestStore(state => state.setField);
+    const handleSetField = React.useCallback(
+        (key, value) => {
+            setField(key, value);
+        },
+        [setField]
+    );
+
+    const [submitSwitch, setSubmitSwitch] = React.useState(false);
+    const handleSubmit = () => {
+        setSubmitSwitch(!submitSwitch);
+    };
+
+    console.log(useTestStore.getState());
 
     return (
         // keeping this in case we like full page design better
@@ -27,6 +53,8 @@ const TestPage = () => {
                         required
                         inputProps="w-80"
                         clearSwitch={clearSwitch}
+                        handleSetField={handleSetField}
+                        submitSwitch={submitSwitch}
                     />
                     <RecordingInput
                         label="Pet Name"
@@ -35,7 +63,9 @@ const TestPage = () => {
                         capitalize
                         required
                         inputProps="w-80"
+                        handleSetField={handleSetField}
                         clearSwitch={clearSwitch}
+                        submitSwitch={submitSwitch}
                     />
                     <RecordingInput
                         label="Species"
@@ -44,7 +74,9 @@ const TestPage = () => {
                         capitalize
                         required
                         inputProps="w-80"
+                        handleSetField={handleSetField}
                         clearSwitch={clearSwitch}
+                        submitSwitch={submitSwitch}
                     />
                     <RecordingInput
                         label="Reason for Visit"
@@ -53,7 +85,9 @@ const TestPage = () => {
                         textarea
                         required
                         inputProps="h-24 w-80"
+                        handleSetField={handleSetField}
                         clearSwitch={clearSwitch}
+                        submitSwitch={submitSwitch}
                     />
                     <RecordingInput
                         label="Additional Notes"
@@ -62,11 +96,15 @@ const TestPage = () => {
                         textarea
                         required
                         inputProps="h-24 w-80"
+                        handleSetField={handleSetField}
                         clearSwitch={clearSwitch}
+                        submitSwitch={submitSwitch}
                     />
                 </div>
                 <div className="flex flex-col gap-4">
-                    <button className="purple-button">Submit</button>
+                    <button className="purple-button" onClick={handleSubmit}>
+                        Submit
+                    </button>
                     <button className="gray-button" onClick={handleClear}>
                         Clear
                     </button>

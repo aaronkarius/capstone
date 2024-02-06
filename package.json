@@ -14,7 +14,9 @@
         "next-themes": "^0.2.1",
         "react": "^18",
         "react-dom": "^18",
-        "react-icons": "^4.11.0"
+        "react-icons": "^4.11.0",
+        "react-to-print": "^2.14.15",
+        "zustand": "^4.4.7"
     },
     "devDependencies": {
         "@types/node": "20.10.7",

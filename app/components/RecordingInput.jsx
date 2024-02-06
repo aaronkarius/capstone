@@ -9,16 +9,23 @@ const RecordingInput = ({
     textarea = false,
     capitalize = false,
     required = false,
-    clearSwitch = false
+    clearSwitch = false,
+    handleSetField = () => {},
+    submitSwitch = false
 }) => {
+    // state variables to manage recording status, completion, and output
+    const [isRecording, setIsRecording] = React.useState(false);
+    const [output, setOutput] = React.useState("");
+
     // this will refresh the input when clearSwitch is changed
     React.useEffect(() => {
         setOutput("");
     }, [clearSwitch]);
 
-    // state variables to manage recording status, completion, and output
-    const [isRecording, setIsRecording] = React.useState(false);
-    const [output, setOutput] = React.useState("");
+    React.useEffect(() => {
+        handleSetField(id, output);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [submitSwitch]);
 
     // reference to store the SpeechRecognition instance
     const speechRecognition = React.useRef(null);
@@ -105,7 +112,9 @@ const RecordingInput = ({
                         placeholder={placeholder}
                         type="text"
                         value={output}
-                        onChange={e => setOutput(e.target.value)}
+                        onChange={e => {
+                            setOutput(e.target.value);
+                        }}
                         required={required}
                     />
                 ) : (
@@ -115,7 +124,9 @@ const RecordingInput = ({
                         placeholder={placeholder}
                         type="text"
                         value={output}
-                        onChange={e => setOutput(e.target.value)}
+                        onChange={e => {
+                            setOutput(e.target.value);
+                        }}
                         required={required}
                     />
                 )}

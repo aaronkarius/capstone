@@ -2,6 +2,7 @@
 import RecordingInput from "../components/RecordingInput";
 import { useTestStore } from "@/store/store";
 import React from "react";
+import { useReactToPrint } from "react-to-print";
 
 const TestPage = () => {
     // this is going to check each thing in testData and set it to an empty string
@@ -34,12 +35,32 @@ const TestPage = () => {
         [setField]
     );
 
+    // printing stuff
+    const componentRef = React.useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    });
+
     return (
         <div className="flex flex-col items-center justify-center h-full p-6 bg-gray-100 dark:bg-gray-800">
             <div className="flex flex-col w-full max-w-md gap-8 p-6 shadow-md bg-gray-50 dark:bg-gray-700 rounded-xl min-w-min">
                 <h1 className="text-2xl font-semibold tracking-tighter sm:text-3xl md:text-4xl/none">
                     New Patient Visit Form
                 </h1>
+                {/* this is just a test for the pdf */}
+                <div style={{ display: "none" }}>
+                    <div
+                        ref={componentRef}
+                        className="flex flex-col gap-8 p-24"
+                    >
+                        {Object.entries(testData).map(([key, value]) => (
+                            <div key={key} className="flex gap-4">
+                                <h1>{key}</h1>
+                                <p>{value}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
                 <div className="flex flex-wrap gap-4">
                     <RecordingInput
                         label="Owner Name"
@@ -96,7 +117,7 @@ const TestPage = () => {
                     <button
                         className="purple-button"
                         // this will need to be updated to send form data to pdf
-                        onClick={() => console.log(testData)}
+                        onClick={handlePrint}
                     >
                         Submit
                     </button>

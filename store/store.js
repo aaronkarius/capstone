@@ -1,4 +1,5 @@
 import { create } from "zustand";
+// this stores global states to be used anywhere
 
 export const useTestStore = create(set => ({
     ownerName: "",

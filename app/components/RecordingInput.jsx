@@ -1,6 +1,18 @@
 "use client";
 import React from "react";
 
+/**
+ * An input that allows the user to input text via typing or speech recognition.
+ * @param {string} id - The id of the input element. Used to identify the input in the global state.
+ * @param {string} label - The label for the input. Describes the input to the user.
+ * @param {string} placeholder - The placeholder text for the input. Provides a hint to the user.
+ * @param {string} inputProps - Additional styling to apply to the input.
+ * @param {boolean} textarea - Whether or not the input should be a textarea.
+ * @param {boolean} capitalize - Whether or not the input should capitalize the first letter of each word.
+ * @param {boolean} required - Whether or not the input is required.
+ * @param {string} value - The value of the input. Grabbed from the global state.
+ * @param {function} handleSetField - A function that updates the global state with the new value of the input.
+ */
 const RecordingInput = ({
     id,
     label,
@@ -9,24 +21,11 @@ const RecordingInput = ({
     textarea = false,
     capitalize = false,
     required = false,
-    clearSwitch = false,
-    handleSetField = () => {},
-    submitSwitch = false
+    value = "",
+    handleSetField = () => {}
 }) => {
     // state variables to manage recording status, completion, and output
     const [isRecording, setIsRecording] = React.useState(false);
-    const [output, setOutput] = React.useState("");
-
-    // this will refresh the input when clearSwitch is changed
-    React.useEffect(() => {
-        setOutput("");
-    }, [clearSwitch]);
-
-    React.useEffect(() => {
-        handleSetField(id, output);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [submitSwitch]);
-
     // reference to store the SpeechRecognition instance
     const speechRecognition = React.useRef(null);
 
@@ -65,7 +64,8 @@ const RecordingInput = ({
                       char.toUpperCase()
                   );
 
-            setOutput(results);
+            // update the global state with the new value
+            handleSetField(id, results);
         };
 
         //start the speech recognition
@@ -111,9 +111,9 @@ const RecordingInput = ({
                         className={`${inputProps} overflow-y-scroll rounded-md resize-none input`}
                         placeholder={placeholder}
                         type="text"
-                        value={output}
+                        value={value}
                         onChange={e => {
-                            setOutput(e.target.value);
+                            handleSetField(id, e.target.value);
                         }}
                         required={required}
                     />
@@ -123,9 +123,9 @@ const RecordingInput = ({
                         className={`${inputProps} rounded-md input`}
                         placeholder={placeholder}
                         type="text"
-                        value={output}
+                        value={value}
                         onChange={e => {
-                            setOutput(e.target.value);
+                            handleSetField(id, e.target.value);
                         }}
                         required={required}
                     />
@@ -164,4 +164,4 @@ function MicIcon(props) {
     );
 }
 
-export default RecordingInput;
+export default React.memo(RecordingInput);

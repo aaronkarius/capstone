@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discharge Document</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #fff;
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 class="form-title">Discharge Document</h2>
+    
+    <form id="dischargeDocumentForm">
+        <!-- Discharge Document Sections -->
+        <div class="form-section">
+            <label for="instructions">Instructions:</label>
+            <textarea id="instructions" name="discharge[instructions]" placeholder="Enter any special instructions..."></textarea>
+        </div>
+
+        <div class="form-section">
+            <label for="procedure">Procedure:</label>
+            <textarea id="procedure" name="discharge[procedure]" placeholder="Describe the procedure that was performed..."></textarea>
+        </div>
+
+        <div class="form-section">
+            <label for="medication">Medication:</label>
+            <textarea id="medication" name="discharge[medication]" placeholder="List any medications prescribed..."></textarea>
+        </div>
+
+        <div class="form-section">
+            <label for="peFind">PE Findings:</label>
+            <textarea id="peFind" name="discharge[peFind]" placeholder="Summarize the physical exam findings..."></textarea>
+        </div>
+
+        <div class="form-section">
+            <label for="hx">History (HX):</label>
+            <textarea id="hx" name="discharge[hx]" placeholder="Provide the patient's medical history..."></textarea>
+        </div>
+        
+        <button type="submit">Submit Discharge Document</button>
+    </form>
+
+</body>
+</html>

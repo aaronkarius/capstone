@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vet Voice Check-In Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #fff;
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="checkbox"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 100px; /* Increased height for additional comments */
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 class="form-title">Vet Voice Check-In Form</h2>
+    
+    <form id="checkInForm">
+        <!-- Signalment Section -->
+        <div class="form-section">
+            <label for="patientName">Patient Name:</label>
+            <input type="text" id="patientName" name="patientName" required>
+            
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age" required>
+            
+            <label for="breed">Breed:</label>
+            <input type="text" id="breed" name="breed" required>
+            
+            <label for="sex">Sex:</label>
+            <input type="text" id="sex" name="sex" required>
+        </div>
+
+        <!-- Problems Checklist -->
+        <div class="form-section">
+            <label>Problems:</label>
+            <div>
+                <input type="checkbox" id="healthy" name="problems" value="Healthy">
+                <label for="healthy">Healthy</label>
+            </div>
+            <div>
+                <input type="checkbox" id="ocular" name="problems" value="Ocular/Ophthalmic">
+                <label for="ocular">Ocular/Ophthalmic</label>
+            </div>
+            <div>
+                <input type="checkbox" id="oral" name="problems" value="Oral">
+                <label for="oral">Oral</label>
+            </div>
+            <div>
+                <input type="checkbox" id="aural" name="problems" value="Aural/Ears">
+                <label for="aural">Aural/Ears</label>
+            </div>
+            <div>
+                <input type="checkbox" id="respiratory" name="problems" value="Respiratory">
+                <label for="respiratory">Respiratory</label>
+            </div>
+            <div>
+                <input type="checkbox" id="cardiovascular" name="problems" value="Cardiovascular">
+                <label for="cardiovascular">Cardiovascular</label>
+            </div>
+            <div>
+                <input type="checkbox" id="lymphatic" name="problems" value="Lymphatic">
+                <label for="lymphatic">Lymphatic</label>
+            </div>
+            <div>
+                <input type="checkbox" id="musculoskeletal" name="problems" value="Musculoskeletal">
+                <label for="musculoskeletal">Musculoskeletal</label>
+            </div>
+            <div>
+                <input type="checkbox" id="neurological" name="problems" value="Neurological">
+                <label for="neurological">Neurological</label>
+            </div>
+            <div>
+                <input type="checkbox" id="urogenital" name="problems" value="Urogenital">
+                <label for="urogenital">Urogenital</label>
+            </div>
+            <div>
+                <input type="checkbox" id="gastrointestinal" name="problems" value="Gastrointestinal">
+                <label for="gastrointestinal">Gastrointestinal</label>
+            </div>
+        </div>
+
+        <!-- Additional Comments Section -->
+        <div class="form-section">
+            <label for="additionalComments">Additional Comments:</label>
+            <textarea id="additionalComments" name="additionalComments" placeholder="Enter additional comments here..."></textarea>
+        </div>
+        
+        <button type="submit">Submit Check-In Form</button>
+    </form>
+
+</body>
+</html>
+

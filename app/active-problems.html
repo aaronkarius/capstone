@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Problems/Conditions Form</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #fff;
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .textbox-group {
+            margin-bottom: 15px;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 class="form-title">Active Problems/Conditions Form</h2>
+    
+    <form id="activeProblemsForm">
+        <!-- Active Problems/Conditions Section -->
+        <div class="form-section">
+            <label for="injuries">Injuries:</label>
+            <div class="textbox-group">
+                <input type="text" id="injuries" name="activeProblems[injuries]" placeholder="Describe any injuries...">
+            </div>
+            
+            <label for="overarchingIssues">Overarching Issues:</label>
+            <div class="textbox-group">
+                <input type="text" id="overarchingIssues" name="activeProblems[overarchingIssues]" placeholder="Describe any overarching issues...">
+            </div>
+        </div>
+
+        <!-- Additional Comments Section -->
+        <div class="form-section">
+            <label for="additionalComments">Additional Comments:</label>
+            <textarea id="additionalComments" name="additionalComments" placeholder="Enter additional comments here..."></textarea>
+        </div>
+        
+        <button type="submit">Submit Active Problems/Conditions Form</button>
+    </form>
+
+</body>
+</html>

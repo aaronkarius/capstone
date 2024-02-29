@@ -113,7 +113,7 @@ const Home = () => {
                     label="Patient Information"
                     placeholder="Enter details manually or click the microphone to dictate. Words such as 'period' and 'comma' can be used to add punctuation."
                     textarea
-                    inputProps="w-[25vw] h-[8vh]"
+                    inputProps="w-[25vw] h-[12vh]"
                 />
                 <div className="intro-text-holder">
                     <div className="space-y-2">

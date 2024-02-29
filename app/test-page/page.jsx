@@ -47,7 +47,7 @@ const TestPage = () => {
     const handleSubmit = async () => {
         handlePrint();
         try {
-            await updateDoc(doc(db, "test", "1"), { ...testData });
+            await updateDoc(doc(db, "test", "1"), testData);
 
             console.log("successfully updated test document with: ", testData);
         } catch (e) {

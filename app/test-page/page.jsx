@@ -3,6 +3,8 @@ import RecordingInput from "../components/RecordingInput";
 import { useTestStore } from "@/store/store";
 import React from "react";
 import { useReactToPrint } from "react-to-print";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 const TestPage = () => {
     // this is going to check each thing in testData and set it to an empty string
@@ -14,6 +16,7 @@ const TestPage = () => {
 
     // this is going to get the global data from the store
     // also the value used in each RecordingInput component
+    // todo: need to add id to each thing of data
     const testData = useTestStore(state => {
         return {
             ownerName: state.ownerName,
@@ -41,9 +44,20 @@ const TestPage = () => {
         content: () => componentRef.current
     });
 
+    const handleSubmit = async () => {
+        handlePrint();
+        try {
+            await updateDoc(doc(db, "test", "1"), testData);
+
+            console.log("successfully updated test document with: ", testData);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     return (
         <div className="flex flex-col items-center justify-center h-full p-6 bg-gray-100 dark:bg-gray-800">
-            <div className="flex flex-col w-full max-w-md gap-8 p-6 shadow-md bg-gray-50 dark:bg-gray-700 rounded-xl min-w-min">
+            <div className="flex flex-col w-full max-w-md gap-8 p-6 shadow-md bg-gray-50 dark:bg-gray-700 rounded-xl">
                 <h1 className="text-2xl font-semibold tracking-tighter sm:text-3xl md:text-4xl/none">
                     New Patient Visit Form
                 </h1>
@@ -68,7 +82,7 @@ const TestPage = () => {
                         id="ownerName"
                         capitalize
                         required
-                        inputProps="w-80"
+                        inputProps="max-w-80 min-w-[200px]"
                         value={testData.ownerName}
                         handleSetField={handleSetField}
                     />
@@ -78,7 +92,7 @@ const TestPage = () => {
                         id="petName"
                         capitalize
                         required
-                        inputProps="w-80"
+                        inputProps="max-w-80"
                         value={testData.petName}
                         handleSetField={handleSetField}
                     />
@@ -88,7 +102,7 @@ const TestPage = () => {
                         id="species"
                         capitalize
                         required
-                        inputProps="w-80"
+                        inputProps="max-w-80"
                         value={testData.species}
                         handleSetField={handleSetField}
                     />
@@ -98,7 +112,7 @@ const TestPage = () => {
                         id="reasonForVisit"
                         textarea
                         required
-                        inputProps="h-24 w-80"
+                        inputProps="h-24 max-w-80"
                         value={testData.reasonForVisit}
                         handleSetField={handleSetField}
                     />
@@ -108,7 +122,7 @@ const TestPage = () => {
                         id="additionalNotes"
                         textarea
                         required
-                        inputProps="h-24 w-80"
+                        inputProps="h-24 max-w-80"
                         value={testData.additionalNotes}
                         handleSetField={handleSetField}
                     />
@@ -117,7 +131,7 @@ const TestPage = () => {
                     <button
                         className="purple-button"
                         // this will need to be updated to send form data to pdf
-                        onClick={handlePrint}
+                        onClick={handleSubmit}
                     >
                         Submit
                     </button>

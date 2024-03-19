@@ -1,4 +1,10 @@
 {
-    "cSpell.words": ["zustand"],
+    "cSpell.words": [
+        "appspot",
+        "firebaseapp",
+        "firestore",
+        "vetvoice",
+        "zustand"
+    ],
     "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }

@@ -96,7 +96,7 @@ const RecordingInput = ({
     };
 
     return (
-        <div className="flex flex-col items-baseline max-w-sm space-x-2 w-fit">
+        <div className="flex flex-col items-baseline space-x-2 grow w-fit">
             <label
                 htmlFor={id}
                 className="pb-2 text-gray-600 dark:text-gray-300"
@@ -104,7 +104,7 @@ const RecordingInput = ({
                 {label}
             </label>
             {/* not sure why there is margin left being applied here */}
-            <div className="flex gap-4">
+            <div className="flex w-full gap-4 pr-2">
                 {textarea ? (
                     <textarea
                         id={id}

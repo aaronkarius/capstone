@@ -2,35 +2,51 @@
 import Link from "next/link";
 import React from "react";
 import DarkModeToggle from "../DarkModeToggle";
+import { VscThreeBars } from "react-icons/vsc";
 
 const NavBar = () => {
+    const [open, setOpen] = React.useState(false);
+
     return (
-        <div className="sticky top-0 flex justify-between p-6 bg-slate-300 dark:bg-slate-500">
+        <div className="sticky top-0 z-10 flex justify-between p-4 bg-slate-300 dark:bg-slate-500">
             <div>
                 <Link href="/">
                     <PawPrintIcon />
                 </Link>
             </div>
+
             <div className="flex items-center gap-4 ml-auto sm:gap-6">
-                <Link className="navbar-text" href="/test-page">
-                    Test Page
-                </Link>
-                <Link className="navbar-text" href="/login">
-                    Login
-                </Link>
-                <Link className="navbar-text" href="#">
-                    Features
-                </Link>
-                <Link className="navbar-text" href="#">
-                    Pricing
-                </Link>
-                <Link className="navbar-text" href="#">
-                    About
-                </Link>
-                <Link className="navbar-text" href="#">
-                    Contact
-                </Link>
                 <DarkModeToggle />
+                {/* todo */}
+                {true ? (
+                    <>
+                        <Link className="navbar-text" href="/test-page">
+                            Test Page
+                        </Link>
+                        <Link className="navbar-text" href="/login">
+                            Login
+                        </Link>
+                        <Link className="navbar-text" href="#">
+                            Features
+                        </Link>
+                        <Link className="navbar-text" href="#">
+                            Pricing
+                        </Link>
+                        <Link className="navbar-text" href="#">
+                            About
+                        </Link>
+                        <Link className="navbar-text" href="#">
+                            Contact
+                        </Link>
+                    </>
+                ) : (
+                    <VscThreeBars
+                        size={25}
+                        onClick={() => {
+                            setOpen(true);
+                        }}
+                    />
+                )}
             </div>
         </div>
     );

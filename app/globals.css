@@ -50,3 +50,18 @@
         @apply text-sm font-medium hover:underline underline-offset-4;
     }
 }
+
+@keyframes slideDownFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar-animation {
+    animation: slideDownFadeIn 0.5s ease-in-out;
+}

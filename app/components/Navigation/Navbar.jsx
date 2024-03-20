@@ -3,6 +3,29 @@ import Link from "next/link";
 import React from "react";
 import DarkModeToggle from "../DarkModeToggle";
 import { VscThreeBars } from "react-icons/vsc";
+import NavbarModal from "./NavbarModal";
+
+const children = [
+    <Link href="/test-page" key={"/test-page"}>
+        Test Page
+    </Link>,
+    <Link href="/login" key={"/login"}>
+        Login
+    </Link>,
+    <Link href="#" key={"/features"}>
+        Features
+    </Link>,
+    <Link href="#" key={"/pricing"}>
+        Pricing
+    </Link>,
+    <Link href="#" key={"/about"}>
+        About
+    </Link>,
+    <Link href="#" key={"/contact"}>
+        Contact
+    </Link>,
+    <DarkModeToggle key={"dark-mode"} />
+];
 
 const NavBar = () => {
     const [open, setOpen] = React.useState(false);
@@ -15,37 +38,21 @@ const NavBar = () => {
                 </Link>
             </div>
 
-            <div className="flex items-center gap-4 ml-auto sm:gap-6">
-                <DarkModeToggle />
-                {/* todo */}
-                {true ? (
-                    <>
-                        <Link className="navbar-text" href="/test-page">
-                            Test Page
-                        </Link>
-                        <Link className="navbar-text" href="/login">
-                            Login
-                        </Link>
-                        <Link className="navbar-text" href="#">
-                            Features
-                        </Link>
-                        <Link className="navbar-text" href="#">
-                            Pricing
-                        </Link>
-                        <Link className="navbar-text" href="#">
-                            About
-                        </Link>
-                        <Link className="navbar-text" href="#">
-                            Contact
-                        </Link>
-                    </>
-                ) : (
-                    <VscThreeBars
-                        size={25}
-                        onClick={() => {
-                            setOpen(true);
-                        }}
-                    />
+            <div className="flex items-center">
+                {!open && (
+                    <div className="flex items-center gap-6 max-md:hidden navbar-text">
+                        {children}
+                    </div>
+                )}
+                <VscThreeBars
+                    className="cursor-pointer md:hidden"
+                    size={25}
+                    onClick={() => {
+                        setOpen(true);
+                    }}
+                />
+                {open && (
+                    <NavbarModal setOpen={setOpen}>{children}</NavbarModal>
                 )}
             </div>
         </div>

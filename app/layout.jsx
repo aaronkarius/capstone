@@ -7,8 +7,8 @@ import Footer from "./components/Navigation/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-    title: "Capstone Team 15",
-    description: "Working on it!"
+    title: "VetVoice",
+    description: "The veterinarian's assistant"
 };
 
 const RootLayout = ({ children }) => {

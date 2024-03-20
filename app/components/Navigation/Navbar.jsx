@@ -40,8 +40,12 @@ const NavBar = () => {
 
             <div className="flex items-center">
                 {!open && (
-                    <div className="flex items-center gap-6 max-md:hidden navbar-text">
-                        {children}
+                    <div className="flex items-center gap-6 max-md:hidden">
+                        {children.map((child, i) => (
+                            <div key={i} className="navbar-text">
+                                {child}
+                            </div>
+                        ))}
                     </div>
                 )}
                 <VscThreeBars

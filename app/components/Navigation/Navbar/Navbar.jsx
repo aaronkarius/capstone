@@ -1,34 +1,17 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import DarkModeToggle from "../DarkModeToggle";
 import { VscThreeBars } from "react-icons/vsc";
 import NavbarModal from "./NavbarModal";
+import useNavbarChildren from "./hooks/useNavbarChildren";
 
-const children = [
-    <Link href="/test-page" key={"/test-page"}>
-        Test Page
-    </Link>,
-    <Link href="/login" key={"/login"}>
-        Login
-    </Link>,
-    <Link href="#" key={"/features"}>
-        Features
-    </Link>,
-    <Link href="#" key={"/pricing"}>
-        Pricing
-    </Link>,
-    <Link href="#" key={"/about"}>
-        About
-    </Link>,
-    <Link href="#" key={"/contact"}>
-        Contact
-    </Link>,
-    <DarkModeToggle key={"dark-mode"} />
-];
-
-const NavBar = () => {
+const NavBar = async () => {
     const [open, setOpen] = React.useState(false);
+    const [children, setChildren] = React.useState(null);
+
+    React.useEffect(() => {
+        useNavbarChildren().then(setChildren);
+    }, []);
 
     return (
         <div className="sticky top-0 z-10 flex justify-between p-4 bg-slate-300 dark:bg-slate-500">
@@ -42,7 +25,7 @@ const NavBar = () => {
                 {!open && (
                     <div className="flex items-center gap-6 max-md:hidden">
                         {children.map((child, i) => (
-                            <div key={i} className="navbar-text">
+                            <div key={i} className="flex navbar-text">
                                 {child}
                             </div>
                         ))}

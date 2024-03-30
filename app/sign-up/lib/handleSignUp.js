@@ -1,56 +1,42 @@
-import {
-    browserLocalPersistence,
-    browserSessionPersistence,
-    createUserWithEmailAndPassword,
-    setPersistence,
-    signInWithEmailAndPassword
-} from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "@/app/firebaseConfig";
-import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "@/lib/firebaseConfig";
 
-const handleSignUp = (firstName, lastName, email, password, rememberMe) => {
+const handleSignUp = (
+    { firstName, lastName, email, password },
+    toast,
+    router
+) => {
     createUserWithEmailAndPassword(auth, email, password)
-        .then(async response => {
-            // unique id for the user
-            const uid = response.user.uid;
-            const data = {
-                id: uid,
-                firstName,
-                lastName,
-                email,
-                password
-            };
-
+        .then(() => {
             try {
-                // save the user data to the database
-                await setDoc(doc(db, "users", uid), data);
+                router.prefetch("/login");
+            } catch (_) {}
 
-                setPersistence(
-                    auth,
-                    rememberMe
-                        ? browserLocalPersistence
-                        : browserSessionPersistence
-                ).then(() => {
-                    signInWithEmailAndPassword(auth, email, password);
-                });
+            updateProfile(auth.currentUser, {
+                displayName: `${firstName} ${lastName}`
+            });
 
-                toast.success("Sign up successful!");
-            } catch (error) {
-                toast.error(
-                    "An error has occurred trying to save user data. Please try again later."
-                );
-            }
+            toast({
+                title: "Sign up successful!",
+                description: "Redirecting you now.",
+                variant: "success"
+            });
         })
         .catch(error => {
             // trying to make the error a little prettier
-            toast.error(
-                error.message
+            toast({
+                title: "Uh oh! Something went wrong.",
+                description: error.message
                     .replace("Firebase: ", "")
                     .replace("auth/", "")
-                    .replaceAll("-", " ")
-            );
+                    .replaceAll("-", " "),
+                variant: "destructive"
+            });
         });
+
+    setTimeout(() => {
+        router.push("/");
+    }, 2000);
 };
 
 export default handleSignUp;

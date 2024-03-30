@@ -1,4 +1,4 @@
-import LoadingScreen from "./components/Fallbacks/LoadingScreen";
+import LoadingScreen from "@/components/Fallbacks/LoadingScreen";
 
 const Loading = () => {
     return <LoadingScreen />;

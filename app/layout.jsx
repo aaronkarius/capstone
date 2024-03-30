@@ -1,8 +1,12 @@
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import Providers from "./components/Providers";
+import { cn } from "@/lib/utils";
+import Providers from "@/components/Auth/Providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+    subsets: ["latin"],
+    variable: "--font-sans"
+});
 
 export const metadata = {
     title: "VetVoice",
@@ -11,8 +15,13 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang="en" suppressHydrationWarning className="h-full min-w-min">
-            <body className={`${inter.className} h-full flex flex-col`}>
+        <html lang="en" suppressHydrationWarning className="h-full">
+            <body
+                className={cn(
+                    "min-h-screen bg-body font-sans antialiased",
+                    fontSans.variable
+                )}
+            >
                 <Providers>{children}</Providers>
             </body>
         </html>

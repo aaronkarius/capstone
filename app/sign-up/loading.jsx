@@ -1,7 +1,9 @@
-import LoadingScreen from "../components/Fallbacks/LoadingScreen";
+import LoadingScreen from "@/components/Fallbacks/LoadingScreen";
 
-const Loading = () => {
-    return <LoadingScreen />;
-};
-
-export default Loading;
+export default function Loading() {
+    return (
+        <div className="h-screen">
+            <LoadingScreen />
+        </div>
+    );
+}

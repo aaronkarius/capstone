@@ -1,8 +1,10 @@
 "use client";
-import ErrorScreen from "../components/Fallbacks/ErrorScreen";
+import ErrorScreen from "@/components/Fallbacks/ErrorScreen";
 
-const Error = () => {
-    return <ErrorScreen />;
-};
-
-export default Error;
+export default function Error() {
+    return (
+        <div className="h-screen">
+            <ErrorScreen />
+        </div>
+    );
+}

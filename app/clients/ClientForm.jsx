@@ -47,7 +47,13 @@ export default function ClientForm({ setOpen, toast, edit, previousData }) {
 
     const handleSubmit = async data => {
         setLoading(true);
-        await handleCreateOrUpdateClient(data, toast, setOpen, edit);
+        await handleCreateOrUpdateClient(
+            data,
+            toast,
+            setOpen,
+            edit,
+            previousData
+        );
         setLoading(false);
     };
 

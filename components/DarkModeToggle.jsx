@@ -4,7 +4,7 @@ import { Moon, Sun } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
 
-const DarkModeToggle = () => {
+const DarkModeToggle = ({ classes }) => {
     const [mounted, setMounted] = React.useState(false);
     const { theme, setTheme } = useTheme();
 
@@ -20,6 +20,7 @@ const DarkModeToggle = () => {
         <Button
             variant="outline"
             size="icon"
+            className={classes}
             onClick={() =>
                 theme === "dark" ? setTheme("light") : setTheme("dark")
             }

@@ -11,56 +11,50 @@ import {
     FormLabel,
     FormMessage
 } from "@/components/ui/form";
-import PasswordEyeField from "@/components/fields/AuthFields/PasswordEyeField";
 import EmailField from "@/components/fields/AuthFields/EmailField";
-import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
-import handleSignUp from "./lib/handleSignUp";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import { DialogFooter } from "@/components/ui/dialog";
+import {
+    emailSchema,
+    firstNameSchema,
+    lastNameSchema
+} from "./../../lib/schemas";
+import { DialogClose, DialogFooter } from "@/components/ui/dialog";
+import PatientAccordion from "./_Patients/PatientAccordion";
+import handleCreateOrUpdateClient from "./lib/handleCreateOrUpdateClient";
 
+// todo: add patients schema?
 const schema = z.object({
-    firstName: z
-        .string()
-        .min(1, { message: "Must contain at least 1 character" })
-        .max(20, { message: "Must contain at most 20 characters" })
-        .regex(/^[a-zA-z]+$/, { message: "Must contain only letters" }),
-    lastName: z
-        .string()
-        .min(1, { message: "Must contain at least 1 character" })
-        .max(20, { message: "Must contain at most 20 characters" })
-        .regex(/^[a-zA-z]+$/, { message: "Must contain only letters" }),
-    email: z
-        .string()
-        .email()
-        .max(50, { message: "Must contain at most 50 characters" }),
-    password: z
-        .string()
-        .min(6, { message: "Must contain at least 6 characters" })
-        .max(20, { message: "Must contain at most 20 characters" })
-        .regex(/^\S+$/, { message: "Cannot contain whitespace" })
+    ...firstNameSchema,
+    ...lastNameSchema,
+    ...emailSchema
 });
 
-export default function SignUpForm() {
+export default function ClientForm({ setOpen, toast, edit, previousData }) {
     const [loading, setLoading] = useState(false);
-    const { toast } = useToast();
-    const router = useRouter();
+
+    // todo: add patients
 
     const form = useForm({
         resolver: zodResolver(schema),
         defaultValues: {
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: ""
+            firstName: previousData?.firstName ?? "",
+            lastName: previousData?.lastName ?? "",
+            email: previousData?.email ?? ""
         }
     });
 
-    const handleSubmit = data => {
+    const handleSubmit = async data => {
         setLoading(true);
-        handleSignUp(data, toast, router);
+        await handleCreateOrUpdateClient(
+            data,
+            toast,
+            setOpen,
+            edit,
+            previousData
+        );
+        setLoading(false);
     };
 
     return (
@@ -69,12 +63,12 @@ export default function SignUpForm() {
                 onSubmit={form.handleSubmit(handleSubmit)}
                 className="grid gap-4"
             >
-                <div className="flex gap-4">
+                <div className="flex justify-between gap-4">
                     <FormField
                         control={form.control}
                         name="firstName"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="flex-1">
                                 <FormLabel>First Name</FormLabel>
                                 <FormControl>
                                     <Input
@@ -91,7 +85,7 @@ export default function SignUpForm() {
                         control={form.control}
                         name="lastName"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="flex-1">
                                 <FormLabel>Last Name</FormLabel>
                                 <FormControl>
                                     <Input
@@ -106,14 +100,23 @@ export default function SignUpForm() {
                     />
                 </div>
                 <EmailField form={form} disabled={loading} />
-                <PasswordEyeField form={form} disabled={loading} />
+                {!edit && <PatientAccordion />}
                 <DialogFooter>
-                    <Button className="w-full" type="submit" disabled={loading}>
+                    <Button type="submit" disabled={loading} className="flex-1">
                         {loading && (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
-                        Sign up
+                        {edit ? "Update" : "Create"}
                     </Button>
+                    <DialogClose asChild>
+                        <Button
+                            variant="secondary"
+                            className="flex-1"
+                            disabled={loading}
+                        >
+                            Cancel
+                        </Button>
+                    </DialogClose>
                 </DialogFooter>
             </form>
         </Form>

@@ -8,7 +8,6 @@ export default function GlobalFilter({ table, globalFilter }) {
             placeholder="Filter table..."
             value={globalFilter ?? ""}
             onChange={event => {
-                console.log(table.setGlobalFilter);
                 table.setGlobalFilter(event.target.value);
             }}
             className="max-w-sm"

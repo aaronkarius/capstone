@@ -12,12 +12,10 @@ import Pagination from "@/components/DataTable/Pagination";
 import ToggleColumns from "./ToggleColumns";
 import GlobalFilter from "./GlobalFilter";
 
-export default function DataTable({ table, columns, globalFilter }) {
+export default function DataTable({ table, columns, globalFilter, isLoading }) {
     return (
         <>
             <div className="flex items-center gap-4 py-4">
-                {/* todo: move filter out to its own component once we figure
-                out how to filter through everything */}
                 <GlobalFilter table={table} globalFilter={globalFilter} />
                 <ToggleColumns table={table} />
             </div>
@@ -42,7 +40,16 @@ export default function DataTable({ table, columns, globalFilter }) {
                     ))}
                 </TableHeader>
                 <TableBody>
-                    {table.getRowModel().rows?.length ? (
+                    {isLoading ? (
+                        <TableRow>
+                            <TableCell
+                                colSpan={columns.length}
+                                className="h-24 text-center"
+                            >
+                                Loading...
+                            </TableCell>
+                        </TableRow>
+                    ) : table.getRowModel().rows?.length ? (
                         table.getRowModel().rows.map(row => (
                             <TableRow
                                 key={row.id}

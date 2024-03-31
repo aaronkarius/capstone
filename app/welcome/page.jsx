@@ -30,7 +30,7 @@ export default function Welcome() {
     }, [api]);
 
     return (
-        <div className="test">
+        <div className="welcome-background">
             <UnauthenticatedNavbar />
             <main className="flex h-svh">
                 <div className="relative my-24 flex w-screen flex-1 items-center justify-center px-8 py-24 sm:my-32">

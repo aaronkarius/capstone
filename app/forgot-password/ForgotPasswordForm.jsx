@@ -11,6 +11,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { DialogFooter } from "@/components/ui/dialog";
 
 const schema = z.object({
     email: z.string().email().max(50)
@@ -53,16 +54,14 @@ export default function ForgotPasswordForm() {
                 className="grid gap-4"
             >
                 <EmailField form={form} disabled={loading} />
-                <Button
-                    className="mt-6 w-full"
-                    type="submit"
-                    disabled={loading}
-                >
-                    {loading && (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    )}
-                    Send
-                </Button>
+                <DialogFooter>
+                    <Button className="w-full" type="submit" disabled={loading}>
+                        {loading && (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        Send
+                    </Button>
+                </DialogFooter>
             </form>
         </Form>
     );

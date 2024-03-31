@@ -10,5 +10,6 @@
     "jsxBracketSameLine": false,
     "bracketSameLine": false,
     "arrowParens": "avoid",
-    "semi": true
+    "semi": true,
+    "plugins": ["prettier-plugin-tailwindcss"]
 }

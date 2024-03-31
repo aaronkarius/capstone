@@ -1,7 +1,8 @@
 "use client";
 import { useTheme } from "next-themes";
-import { FaMoon, FaSun } from "react-icons/fa";
+import { Moon, Sun } from "lucide-react";
 import React from "react";
+import { Button } from "./ui/button";
 
 const DarkModeToggle = () => {
     const [mounted, setMounted] = React.useState(false);
@@ -16,13 +17,19 @@ const DarkModeToggle = () => {
     }
 
     return (
-        <button
+        <Button
+            variant="outline"
+            size="icon"
             onClick={() =>
                 theme === "dark" ? setTheme("light") : setTheme("dark")
             }
         >
-            {theme === "dark" ? <FaSun size={25} /> : <FaMoon size={25} />}
-        </button>
+            {theme === "dark" ? (
+                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            ) : (
+                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            )}
+        </Button>
     );
 };
 

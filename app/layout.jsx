@@ -1,25 +1,28 @@
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import ThemeProvider from "./components/ThemeProvider";
-import Navbar from "./components/Navigation/Navbar";
-import Footer from "./components/Navigation/Footer";
+import { cn } from "@/lib/utils";
+import Providers from "@/components/Auth/Providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+    subsets: ["latin"],
+    variable: "--font-sans"
+});
 
 export const metadata = {
-    title: "Capstone Team 15",
-    description: "Working on it!"
+    title: "VetVoice",
+    description: "The veterinarian's assistant"
 };
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang="en" suppressHydrationWarning className="h-full min-w-min">
-            <body className={`${inter.className} h-full flex flex-col`}>
-                <ThemeProvider>
-                    <Navbar />
-                    {children}
-                    <Footer />
-                </ThemeProvider>
+        <html lang="en" suppressHydrationWarning className="h-full">
+            <body
+                className={cn(
+                    "min-h-screen bg-body font-sans antialiased",
+                    fontSans.variable
+                )}
+            >
+                <Providers>{children}</Providers>
             </body>
         </html>
     );

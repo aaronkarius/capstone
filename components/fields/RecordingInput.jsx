@@ -1,5 +1,18 @@
 "use client";
 import React from "react";
+import {
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { cn } from "@/lib/utils";
+import { Label } from "../ui/label";
+import { Button } from "../ui/button";
+import { Mic } from "lucide-react";
 
 /**
  * An input that allows the user to input text via typing or speech recognition.
@@ -17,6 +30,8 @@ const RecordingInput = ({
     id,
     label,
     placeholder,
+    form,
+    disabled = false,
     inputProps = "",
     textarea = false,
     capitalize = false,
@@ -96,50 +111,97 @@ const RecordingInput = ({
     };
 
     return (
-        <div className="flex flex-col items-baseline space-x-2 grow w-fit">
-            <label
-                htmlFor={id}
-                className="pb-2 text-gray-600 dark:text-gray-300"
-            >
-                {label}
-            </label>
-            {/* not sure why there is margin left being applied here */}
-            <div className="flex w-full gap-4 pr-2">
-                {textarea ? (
-                    <textarea
-                        id={id}
-                        className={`${inputProps} overflow-y-scroll rounded-md resize-none input`}
-                        placeholder={placeholder}
-                        type="text"
-                        value={value}
-                        onChange={e => {
-                            handleSetField(id, e.target.value);
-                        }}
-                        required={required}
+        <>
+            {form ? (
+                // todo: form version
+                <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    disabled={disabled}
+                                    className="resize-none"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            ) : (
+                // todo: are we gonna do demos in the welcome page?
+                <div className={cn("relative", inputProps)}>
+                    <Label htmlFor="input-demo">Patient Information</Label>
+                    <Textarea
+                        id="input-demo"
+                        disabled={disabled}
+                        className="resize-none"
+                        placeholder="Enter details manually or click the microphone to dictate. Words such as 'period' and 'comma' can be used to add punctuation."
                     />
-                ) : (
-                    <input
-                        id={id}
-                        className={`${inputProps} rounded-md input`}
-                        placeholder={placeholder}
-                        type="text"
-                        value={value}
-                        onChange={e => {
-                            handleSetField(id, e.target.value);
-                        }}
-                        required={required}
-                    />
-                )}
-                <button size="icon" variant="ghost" onClick={handleRecording}>
-                    <MicIcon
-                        className={`w-6 h-6 ${
-                            isRecording &&
-                            "animate-pulse text-red-600 dark:text-red-300"
-                        }`}
-                    />
-                </button>
-            </div>
-        </div>
+                    <Button
+                        variant="ghost"
+                        className="absolute right-0 top-1/2 -translate-y-full transform"
+                        type="button"
+                        // onClick={() => setShowPassword(!showPassword)}
+                        disabled={disabled}
+                    >
+                        {isRecording ? (
+                            <Mic className="h-5 w-5" />
+                        ) : (
+                            <Mic className="h-5 w-5" />
+                        )}
+                    </Button>
+                </div>
+            )}
+        </>
+
+        // <div className="flex flex-col items-baseline space-x-2 grow w-fit">
+        //     <label
+        //         htmlFor={id}
+        //         className="pb-2 text-gray-600 dark:text-gray-300"
+        //     >
+        //         {label}
+        //     </label>
+        //     {/* not sure why there is margin left being applied here */}
+        //     <div className="flex w-full gap-4 pr-2">
+        //         {textarea ? (
+        //             <textarea
+        //                 id={id}
+        //                 className={`${inputProps} overflow-y-scroll rounded-md resize-none input`}
+        //                 placeholder={placeholder}
+        //                 type="text"
+        //                 value={value}
+        //                 onChange={e => {
+        //                     handleSetField(id, e.target.value);
+        //                 }}
+        //                 required={required}
+        //             />
+        //         ) : (
+        //             <input
+        //                 id={id}
+        //                 className={`${inputProps} rounded-md input`}
+        //                 placeholder={placeholder}
+        //                 type="text"
+        //                 value={value}
+        //                 onChange={e => {
+        //                     handleSetField(id, e.target.value);
+        //                 }}
+        //                 required={required}
+        //             />
+        //         )}
+        //         <button size="icon" variant="ghost" onClick={handleRecording}>
+        //             <MicIcon
+        //                 className={`w-6 h-6 ${
+        //                     isRecording &&
+        //                     "animate-pulse text-red-600 dark:text-red-300"
+        //                 }`}
+        //             />
+        //         </button>
+        //     </div>
+        // </div>
     );
 };
 

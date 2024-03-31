@@ -14,8 +14,8 @@ export default function Login() {
     return (
         <>
             <UnauthenticatedNavbar />
-            <main className="h-screen">
-                <div className="flex h-screen items-center justify-center p-8">
+            <main className="h-svh">
+                <div className="flex h-svh items-center justify-center p-8">
                     <Card className="w-full max-w-sm">
                         <CardHeader>
                             <CardTitle className="text-2xl">Login</CardTitle>

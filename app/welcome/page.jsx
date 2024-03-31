@@ -32,7 +32,7 @@ export default function Welcome() {
     return (
         <div className="test">
             <UnauthenticatedNavbar />
-            <main className="flex h-screen">
+            <main className="flex h-svh">
                 <div className="relative my-24 flex w-screen flex-1 items-center justify-center px-8 py-24 sm:my-32">
                     <h1
                         className={cn(

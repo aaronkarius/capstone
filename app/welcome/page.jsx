@@ -147,7 +147,7 @@ export default function Welcome() {
                         </CarouselContent>
                         <CarouselPrevious className="left-0 max-md:hidden" />
                         <CarouselNext className="right-0 max-md:hidden" />
-                        <CarouselDots className="end-0 -mt-12" />
+                        <CarouselDots className="end-0 sm:-mt-12" />
                     </Carousel>
                 </div>
             </main>

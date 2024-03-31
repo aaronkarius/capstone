@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function actionsColumn(
+    setViewModalOpen,
     setEditModalOpen,
     setEditModalData,
     setDeleteModalOpen,
@@ -19,6 +20,11 @@ export default function actionsColumn(
         id: "actions",
         cell: ({ row }) => {
             const data = row.original;
+
+            const handleViewClick = () => {
+                setEditModalData(data);
+                setViewModalOpen(true);
+            };
 
             const handleEditClick = () => {
                 setEditModalData(data);
@@ -43,7 +49,9 @@ export default function actionsColumn(
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>View</DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleViewClick}>
+                            View
+                        </DropdownMenuItem>
                         <DropdownMenuItem onClick={handleEditClick}>
                             Edit
                         </DropdownMenuItem>

@@ -30,6 +30,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import DeleteClientModal from "./_ClientActionModals/DeleteClientModal";
 import EditClientModal from "./_ClientActionModals/EditClientModal";
+import ViewClientModal from "./_ClientActionModals/ViewClientModal";
 
 export default function Clients() {
     const { toast } = useToast();
@@ -40,6 +41,8 @@ export default function Clients() {
 
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [editModalData, setEditModalData] = useState({});
+
+    const [viewModalOpen, setViewModalOpen] = useState(false);
 
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
@@ -70,6 +73,7 @@ export default function Clients() {
         },
         {
             ...actionsColumn(
+                setViewModalOpen,
                 setEditModalOpen,
                 setEditModalData,
                 setDeleteModalOpen,
@@ -143,6 +147,11 @@ export default function Clients() {
                     </CardContent>
                 </Card>
             </div>
+            <ViewClientModal
+                viewModalOpen={viewModalOpen}
+                setViewModalOpen={setViewModalOpen}
+                editModalData={editModalData}
+            />
             <EditClientModal
                 editModalOpen={editModalOpen}
                 setEditModalOpen={setEditModalOpen}

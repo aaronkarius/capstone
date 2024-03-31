@@ -1,7 +1,7 @@
 export default function Another() {
     return (
         <div>
-            <h1>Another Page</h1>
+            <h1>Working on it!</h1>
         </div>
     );
 }

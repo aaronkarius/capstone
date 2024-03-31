@@ -15,7 +15,7 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 
-export default function AnimalAccordion() {
+export default function PatientAccordion({ view }) {
     return (
         <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
@@ -27,24 +27,27 @@ export default function AnimalAccordion() {
                         </Badge>
                     </div>
                 </AccordionTrigger>
-                <div className="fixed end-12 -mt-12">
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button variant="outline">Add Patient</Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                            <DialogHeader>
-                                <DialogTitle>New Patient</DialogTitle>
-                                <DialogDescription>
-                                    Patient information can always be updated
-                                    later
-                                </DialogDescription>
-                            </DialogHeader>
-                            Working on it!
-                        </DialogContent>
-                    </Dialog>
-                </div>
-                <AccordionContent>Todo !</AccordionContent>
+                {!view && (
+                    <div className="fixed end-12 -mt-12">
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="outline">Add Patient</Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>New Patient</DialogTitle>
+                                    <DialogDescription>
+                                        Patient information can always be
+                                        updated later
+                                    </DialogDescription>
+                                </DialogHeader>
+                                Working on it!
+                            </DialogContent>
+                        </Dialog>
+                    </div>
+                )}
+
+                <AccordionContent>Working on it!</AccordionContent>
             </AccordionItem>
         </Accordion>
     );

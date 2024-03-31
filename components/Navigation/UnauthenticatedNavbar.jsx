@@ -74,7 +74,9 @@ export default function UnauthenticatedNavbar() {
                             </AlertDescription>
                         </Alert>
                         <div className="flex justify-between md:hidden">
-                            <Button variant="outline">Information</Button>
+                            <Button variant="outline" className="z-10">
+                                Information
+                            </Button>
                         </div>
                     </div>
                 </DrawerTrigger>

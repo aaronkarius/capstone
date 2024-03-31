@@ -42,7 +42,7 @@ export default function UnauthenticatedNavbar() {
                             <NavigationMenuItem>
                                 <Link href="/welcome" legacyBehavior passHref>
                                     <NavigationMenuLink
-                                        className={`${navigationMenuTriggerStyle()} !p-2 sm:!px-4 sm:!py-2`}
+                                        className={`${navigationMenuTriggerStyle()} !bg-transparent !p-2 hover:!bg-accent sm:!px-4 sm:!py-2`}
                                     >
                                         Welcome
                                     </NavigationMenuLink>
@@ -51,7 +51,7 @@ export default function UnauthenticatedNavbar() {
                             <NavigationMenuItem>
                                 <Link href="/login" legacyBehavior passHref>
                                     <NavigationMenuLink
-                                        className={`${navigationMenuTriggerStyle()} !p-2 sm:!px-4 sm:!py-2`}
+                                        className={`${navigationMenuTriggerStyle()} !bg-transparent !p-2 hover:!bg-accent sm:!px-4 sm:!py-2`}
                                     >
                                         Login
                                     </NavigationMenuLink>
@@ -59,7 +59,7 @@ export default function UnauthenticatedNavbar() {
                             </NavigationMenuItem>
                         </NavigationMenuList>
                     </NavigationMenu>
-                    <DarkModeToggle />
+                    <DarkModeToggle classes="bg-transparent" />
                 </div>
             </div>
             <Drawer open={open} onOpenChange={setOpen}>

@@ -1,11 +1,11 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "@/lib/firebaseConfig";
 
-const handleSignUp = (
+export default function handleSignUp(
     { firstName, lastName, email, password },
     toast,
     router
-) => {
+) {
     createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
             try {
@@ -37,6 +37,4 @@ const handleSignUp = (
     setTimeout(() => {
         router.push("/");
     }, 2000);
-};
-
-export default handleSignUp;
+}

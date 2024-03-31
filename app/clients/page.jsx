@@ -7,85 +7,40 @@ import {
     useReactTable
 } from "@tanstack/react-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import DataTable from "@/components/DataTable/DataTable";
 import SortableHeader from "@/components/DataTable/SortableHeader";
-import fuzzyFilter from "@/components/DataTable/hooks/useGlobalFilter";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebaseConfig";
+import fuzzyFilter from "@/components/DataTable/lib/globalFilter";
 import useSWR from "swr";
 import LoadingScreen from "@/components/Fallbacks/LoadingScreen";
 import ErrorScreen from "@/components/Fallbacks/ErrorScreen";
-
-const columns = [
-    {
-        accessorKey: "firstName",
-        header: ({ column }) => {
-            return <SortableHeader column={column} label="First Name" />;
-        }
-    },
-    {
-        accessorKey: "lastName",
-        header: ({ column }) => {
-            return <SortableHeader column={column} label="Last Name" />;
-        }
-    },
-    {
-        accessorKey: "email",
-        filterFn: "fuzzy",
-        header: ({ column }) => {
-            return <SortableHeader column={column} label="Email" />;
-        }
-    },
-    {
-        id: "actions",
-        cell: ({ row }) => {
-            const data = row.original;
-
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() =>
-                                navigator.clipboard.writeText(data.id)
-                            }
-                        >
-                            View
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        }
-    }
-];
-
-const fetcher = async collectionName => {
-    const collectionRef = collection(db, collectionName);
-    const snapshot = await getDocs(collectionRef);
-    return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-};
+import fetcher from "@/lib/fetcher";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog";
+import ClientForm from "./ClientForm";
+import actionsColumn from "@/components/DataTable/lib/actionsColumn";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
+import DeleteClientModal from "./_ClientActionModals/DeleteClientModal";
+import EditClientModal from "./_ClientActionModals/EditClientModal";
 
 export default function Clients() {
+    const { toast } = useToast();
+    const [open, setOpen] = useState(false);
+
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [deleteModalData, setDeleteModalData] = useState({});
+
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [editModalData, setEditModalData] = useState({});
+
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
     const [columnVisibility, setColumnVisibility] = useState({});
@@ -93,7 +48,35 @@ export default function Clients() {
 
     const { data, error, isLoading } = useSWR("clients", fetcher);
 
-    console.log(data);
+    const columns = [
+        {
+            accessorKey: "firstName",
+            header: ({ column }) => {
+                return <SortableHeader column={column} label="First Name" />;
+            }
+        },
+        {
+            accessorKey: "lastName",
+            header: ({ column }) => {
+                return <SortableHeader column={column} label="Last Name" />;
+            }
+        },
+        {
+            accessorKey: "email",
+            filterFn: "fuzzy",
+            header: ({ column }) => {
+                return <SortableHeader column={column} label="Email" />;
+            }
+        },
+        {
+            ...actionsColumn(
+                setEditModalOpen,
+                setEditModalData,
+                setDeleteModalOpen,
+                setDeleteModalData
+            )
+        }
+    ];
 
     const table = useReactTable({
         data,
@@ -125,21 +108,54 @@ export default function Clients() {
         return <ErrorScreen />;
     }
 
+    // todo: have table be fixed width so it doesn't move around a lot ?
+
     return (
-        <div className="flex h-full items-center justify-center p-8">
-            <Card className="w-full">
-                <CardHeader>
-                    <CardTitle className="text-2xl">Clients</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <DataTable
-                        table={table}
-                        columns={columns}
-                        globalFilter={globalFilter}
-                        isLoading={isLoading}
-                    />
-                </CardContent>
-            </Card>
-        </div>
+        <>
+            <div className="flex h-full items-center justify-center p-8">
+                <Card className="w-full max-w-2xl">
+                    <CardHeader className="flex flex-row justify-between">
+                        <CardTitle className="text-2xl">Clients</CardTitle>
+                        <Dialog open={open} onOpenChange={setOpen}>
+                            <DialogTrigger asChild>
+                                <Button>Add Client</Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>New Client</DialogTitle>
+                                    <DialogDescription>
+                                        You can also add introductory
+                                        information about the patient(s) here,
+                                        or later in the Patients page.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <ClientForm setOpen={setOpen} toast={toast} />
+                            </DialogContent>
+                        </Dialog>
+                    </CardHeader>
+                    <CardContent>
+                        <DataTable
+                            table={table}
+                            columns={columns}
+                            globalFilter={globalFilter}
+                            isLoading={isLoading}
+                        />
+                    </CardContent>
+                </Card>
+            </div>
+            <EditClientModal
+                editModalOpen={editModalOpen}
+                setEditModalOpen={setEditModalOpen}
+                editModalData={editModalData}
+                toast={toast}
+            />
+            <DeleteClientModal
+                deleteModalOpen={deleteModalOpen}
+                setDeleteModalOpen={setDeleteModalOpen}
+                deleteModalData={deleteModalData}
+                toast={toast}
+            />
+            <Toaster />
+        </>
     );
 }

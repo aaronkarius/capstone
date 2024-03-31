@@ -67,6 +67,8 @@ export default function Navbar({ children }) {
             .join("");
     };
 
+    // todo: cleanup duplicate code, and abstract out
+
     return (
         <div className="grid min-h-svh w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
             <div className="hidden border-r bg-muted dark:bg-muted/40 md:block">
@@ -88,6 +90,9 @@ export default function Navbar({ children }) {
                             >
                                 <Home className="h-4 w-4" />
                                 Dashboard
+                                <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                                    0
+                                </Badge>
                             </Link>
                             <Link
                                 href="#"
@@ -95,9 +100,6 @@ export default function Navbar({ children }) {
                             >
                                 <ShoppingCart className="h-4 w-4" />
                                 Billing
-                                <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                                    6
-                                </Badge>
                             </Link>
                             <Link
                                 href="#"
@@ -112,9 +114,6 @@ export default function Navbar({ children }) {
                             >
                                 <Users className="h-4 w-4" />
                                 Clients
-                                <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                                    4
-                                </Badge>
                             </Link>
                             <Link
                                 href="#"
@@ -234,6 +233,9 @@ export default function Navbar({ children }) {
                                 >
                                     <Home className="h-5 w-5" />
                                     Dashboard
+                                    <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                                        0
+                                    </Badge>
                                 </Link>
                                 <Link
                                     href="#"
@@ -241,9 +243,6 @@ export default function Navbar({ children }) {
                                 >
                                     <ShoppingCart className="h-5 w-5" />
                                     Billing
-                                    <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                                        6
-                                    </Badge>
                                 </Link>
                                 <Link
                                     href="#"
@@ -258,9 +257,6 @@ export default function Navbar({ children }) {
                                 >
                                     <Users className="h-5 w-5" />
                                     Clients
-                                    <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                                        4
-                                    </Badge>
                                 </Link>
                                 <Link
                                     href="#"

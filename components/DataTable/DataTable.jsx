@@ -16,8 +16,6 @@ export default function DataTable({ table, columns, globalFilter, isLoading }) {
     return (
         <>
             <div className="flex items-center gap-4 py-4">
-                {/* todo: move filter out to its own component once we figure
-                out how to filter through everything */}
                 <GlobalFilter table={table} globalFilter={globalFilter} />
                 <ToggleColumns table={table} />
             </div>

@@ -12,7 +12,7 @@ export default function AuthCheckWrapper({ children }) {
     return (
         <ThemeProvider enableSystem={false} attribute="class">
             {status === "loading" ? (
-                <div className="h-screen">
+                <div className="h-svh">
                     <LoadingScreen />
                 </div>
             ) : status === "authenticated" &&

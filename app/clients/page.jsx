@@ -21,6 +21,11 @@ import { useState } from "react";
 import DataTable from "@/components/DataTable/DataTable";
 import SortableHeader from "@/components/DataTable/SortableHeader";
 import fuzzyFilter from "@/components/DataTable/hooks/useGlobalFilter";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebaseConfig";
+import useSWR from "swr";
+import LoadingScreen from "@/components/Fallbacks/LoadingScreen";
+import ErrorScreen from "@/components/Fallbacks/ErrorScreen";
 
 const columns = [
     {
@@ -72,32 +77,23 @@ const columns = [
             );
         }
     }
-    // {
-    //     header: "Date of Birth",
-    //     accessorKey: "dob"
-    // }
 ];
 
-export const data = [
-    {
-        id: "728ed52f",
-        firstName: "test",
-        lastName: "user",
-        email: "m@example.com"
-    },
-    {
-        id: "489e1d42",
-        firstName: "another",
-        lastName: "user",
-        email: "example@gmail.com"
-    }
-];
+const fetcher = async collectionName => {
+    const collectionRef = collection(db, collectionName);
+    const snapshot = await getDocs(collectionRef);
+    return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+};
 
 export default function Clients() {
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
     const [columnVisibility, setColumnVisibility] = useState({});
     const [globalFilter, setGlobalFilter] = useState("");
+
+    const { data, error, isLoading } = useSWR("clients", fetcher);
+
+    console.log(data);
 
     const table = useReactTable({
         data,
@@ -122,6 +118,13 @@ export default function Clients() {
         }
     });
 
+    if (!data) {
+        return <LoadingScreen />;
+    }
+    if (error) {
+        return <ErrorScreen />;
+    }
+
     return (
         <div className="flex h-full items-center justify-center p-8">
             <Card className="w-full">
@@ -133,6 +136,7 @@ export default function Clients() {
                         table={table}
                         columns={columns}
                         globalFilter={globalFilter}
+                        isLoading={isLoading}
                     />
                 </CardContent>
             </Card>

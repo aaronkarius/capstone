@@ -1,5 +1,4 @@
 "use client";
-import RecordingInput from "../../components/fields/RecordingInput";
 import { useTestStore } from "@/store/store";
 import React from "react";
 import { useReactToPrint } from "react-to-print";
@@ -12,38 +11,45 @@ import {
     CardHeader,
     CardTitle
 } from "@/components/ui/card";
+import ExamForm from "./ExamForm";
+import { useState } from "react";
+import ExamFormPdf from "./ExamFormPdf";
+import { useEffect } from "react";
 
-const TestPage = () => {
+// todo: cleanup
+export default function PhysicalExamForm() {
     // this is going to check each thing in testData and set it to an empty string
-    const handleClear = () => {
-        for (const key in testData) {
-            handleSetField(key, "");
-        }
-    };
+    // const handleClear = () => {
+    //     for (const key in testData) {
+    //         handleSetField(key, "");
+    //     }
+    // };
 
     // this is going to get the global data from the store
     // also the value used in each RecordingInput component
     // todo: need to add id to each thing of data
-    const testData = useTestStore(state => {
-        return {
-            ownerName: state.ownerName,
-            petName: state.petName,
-            species: state.species,
-            reasonForVisit: state.reasonForVisit,
-            additionalNotes: state.additionalNotes
-        };
-    });
+    // const testData = useTestStore(state => {
+    //     return {
+    //         ownerName: state.ownerName,
+    //         petName: state.petName,
+    //         species: state.species,
+    //         reasonForVisit: state.reasonForVisit,
+    //         additionalNotes: state.additionalNotes
+    //     };
+    // });
 
     // setField is defined in the test store
-    const setField = useTestStore(state => state.setField);
+    // const setField = useTestStore(state => state.setField);
     // we are going to pass this into each RecordingInput component
     // this will update the global state with the new value the user enters or speaks
-    const handleSetField = React.useCallback(
-        (key, value) => {
-            setField(key, value);
-        },
-        [setField]
-    );
+    // const handleSetField = React.useCallback(
+    //     (key, value) => {
+    //         setField(key, value);
+    //     },
+    //     [setField]
+    // );
+    const [notesValue, setNotesValue] = useState("");
+    const [data, setData] = useState({});
 
     // printing stuff
     const componentRef = React.useRef();
@@ -51,33 +57,73 @@ const TestPage = () => {
         content: () => componentRef.current
     });
 
-    const handleSubmit = async () => {
-        handlePrint();
-        try {
-            await updateDoc(doc(db, "test", "1"), testData);
+    const handleSubmit = formData => {
+        setData({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            dob: formData.dob.toString(),
+            examDate: formData.examDate.toString(),
+            breed: formData.breed,
+            sex: formData.sex,
+            healthy: formData.healthy,
+            notes: notesValue
+        });
+        // try {
+        //     await updateDoc(doc(db, "test", "1"), testData);
 
-            console.log("successfully updated test document with: ", testData);
-        } catch (e) {
-            console.error(e);
-        }
+        //     console.log("successfully updated test document with: ", testData);
+        // } catch (e) {
+        //     console.error(e);
+        // }
     };
+
+    useEffect(() => {
+        if (Object.keys(data).length !== 0) {
+            handlePrint();
+        }
+    }, [data, handlePrint]);
 
     return (
         <div className="flex h-full items-center justify-center p-8">
+            {/* this is just a test for the pdf */}
+            {/* <div style={{ display: "none" }}>
+                <div ref={componentRef} className="flex flex-col gap-8 p-24">
+                    {Object.entries(data).map(([key, value]) => (
+                        <div key={key} className="flex gap-4">
+                            <h1>{key}</h1>
+                            <p>{value}</p>
+                        </div>
+                    ))}
+                </div>
+            </div> */}
+            <div className="hidden">
+                <div className="flex h-full p-8" ref={componentRef}>
+                    <ExamFormPdf data={data} />
+                </div>
+            </div>
             <Card className="w-full max-w-sm">
                 <CardHeader>
                     <CardTitle className="text-2xl">
-                        New Patient Visit Form
+                        Physical Exam Form
                     </CardTitle>
-                    <CardDescription>All fields are required.</CardDescription>
+                    <CardDescription>
+                        This a test form. Hitting submit will generate a pdf
+                        with your inputs.
+                    </CardDescription>
                 </CardHeader>
-                <CardContent>Working on it!</CardContent>
+                <CardContent>
+                    <ExamForm
+                        handleSubmit={handleSubmit}
+                        notesValue={notesValue}
+                        setNotesValue={setNotesValue}
+                    />
+                </CardContent>
             </Card>
         </div>
         // <div className="flex h-full flex-col items-center justify-center bg-gray-100 p-6 dark:bg-gray-800">
         //     <div className="flex w-full max-w-md flex-col gap-8 rounded-xl bg-gray-50 p-6 shadow-md dark:bg-gray-700">
         //         <h1 className="text-2xl font-semibold tracking-tighter sm:text-3xl md:text-4xl/none">
-        //             New Patient Visit Form
+        //             Physical Exam Form
         //         </h1>
         //         {/* this is just a test for the pdf */}
         //         <div style={{ display: "none" }}>
@@ -160,6 +206,4 @@ const TestPage = () => {
         //     </div>
         // </div>
     );
-};
-
-export default TestPage;
+}

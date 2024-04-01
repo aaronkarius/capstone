@@ -11,7 +11,8 @@ import {
     ShoppingCart,
     Users,
     Mail,
-    Construction
+    Construction,
+    PawPrint
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -70,7 +71,7 @@ export default function Navbar({ children }) {
     // todo: cleanup duplicate code, and abstract out
 
     return (
-        <div className="grid min-h-svh w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+        <div className="grid h-full min-h-svh w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
             <div className="hidden border-r bg-muted dark:bg-muted/40 md:block">
                 <div className="flex h-full max-h-svh flex-col gap-2">
                     <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -119,6 +120,13 @@ export default function Navbar({ children }) {
                                 href="#"
                                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                             >
+                                <PawPrint className="h-4 w-4" />
+                                Patients
+                            </Link>
+                            <Link
+                                href="#"
+                                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                            >
                                 <LineChart className="h-4 w-4" />
                                 Analytics
                             </Link>
@@ -130,14 +138,14 @@ export default function Navbar({ children }) {
                                 App Settings
                             </Link>
                             <Link
-                                href="/test-page"
+                                href="/physical-exam-form"
                                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                             >
                                 <Construction className="h-4 w-4" />
-                                Test Page
+                                Physical Exam Form
                             </Link>
                             <Link
-                                href="/test-page/another-page"
+                                href="/physical-exam-form/another-page"
                                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                             >
                                 <Construction className="h-4 w-4" />
@@ -203,7 +211,7 @@ export default function Navbar({ children }) {
                     </p>
                 </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex h-full flex-col">
                 <header className="flex h-14 items-center gap-4 border-b bg-muted px-4 dark:bg-muted/40 lg:h-[60px] lg:px-6">
                     <Sheet>
                         <SheetTrigger asChild>
@@ -239,7 +247,7 @@ export default function Navbar({ children }) {
                                 </Link>
                                 <Link
                                     href="#"
-                                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+                                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                                 >
                                     <ShoppingCart className="h-5 w-5" />
                                     Billing
@@ -262,6 +270,13 @@ export default function Navbar({ children }) {
                                     href="#"
                                     className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                                 >
+                                    <PawPrint className="h-5 w-5" />
+                                    Patients
+                                </Link>
+                                <Link
+                                    href="#"
+                                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                                >
                                     <LineChart className="h-5 w-5" />
                                     Analytics
                                 </Link>
@@ -273,14 +288,14 @@ export default function Navbar({ children }) {
                                     App Settings
                                 </Link>
                                 <Link
-                                    href="/test-page"
+                                    href="/physical-exam-form"
                                     className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                                 >
                                     <Construction className="h-5 w-5" />
-                                    Test Page
+                                    Physical Exam Form
                                 </Link>
                                 <Link
-                                    href="/test-page/another-page"
+                                    href="/physical-exam-form/another-page"
                                     className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                                 >
                                     <Construction className="h-5 w-5" />
@@ -387,7 +402,7 @@ export default function Navbar({ children }) {
                     </DropdownMenu>
                     <DarkModeToggle />
                 </header>
-                <main className="flex-1">{children}</main>
+                <main className="max-h-full w-full flex-1">{children}</main>
             </div>
         </div>
     );

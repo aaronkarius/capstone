@@ -14,6 +14,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Mic } from "lucide-react";
 
+// todo: complete and update
 /**
  * An input that allows the user to input text via typing or speech recognition.
  * @param {string} id - The id of the input element. Used to identify the input in the global state.
@@ -37,6 +38,7 @@ const RecordingInput = ({
     capitalize = false,
     required = false,
     value = "",
+    setValue,
     handleSetField = () => {}
 }) => {
     // state variables to manage recording status, completion, and output
@@ -69,8 +71,8 @@ const RecordingInput = ({
 
             // replace any instances of "period" or "comma" with the actual punctuation
             results = results
-                .replaceAll(" period", ".")
-                .replaceAll(" comma", ",");
+                .replaceAll(/(^|\s)period/gi, ".")
+                .replaceAll(/(^|\s)comma/gi, ",");
 
             // capitalize the first letter of every word or sentence
             results = capitalize
@@ -80,7 +82,9 @@ const RecordingInput = ({
                   );
 
             // update the global state with the new value
-            handleSetField(id, results);
+            // handleSetField(id, results);
+
+            setValue(`${value} ${results}`);
         };
 
         //start the speech recognition
@@ -113,20 +117,38 @@ const RecordingInput = ({
     return (
         <>
             {form ? (
-                // todo: form version
+                // todo: cleanup
                 <FormField
                     control={form.control}
-                    name="email"
+                    name={id}
                     render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
+                        <FormItem className="relative">
+                            <FormLabel>{label}</FormLabel>
                             <FormControl>
                                 <Textarea
                                     disabled={disabled}
-                                    className="resize-none"
-                                    {...field}
+                                    className="resize-none pr-6"
+                                    value={value}
+                                    onChange={e => {
+                                        setValue(e.target.value);
+                                    }}
                                 />
                             </FormControl>
+                            <Button
+                                variant="icon"
+                                className="absolute right-2 top-6 h-20"
+                                type="button"
+                                onClick={handleRecording}
+                                disabled={disabled}
+                            >
+                                <Mic
+                                    className={cn(
+                                        "h-5 w-5",
+                                        isRecording &&
+                                            "animate-pulse text-destructive-text"
+                                    )}
+                                />
+                            </Button>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -157,73 +179,7 @@ const RecordingInput = ({
                 </div>
             )}
         </>
-
-        // <div className="flex flex-col items-baseline space-x-2 grow w-fit">
-        //     <label
-        //         htmlFor={id}
-        //         className="pb-2 text-gray-600 dark:text-gray-300"
-        //     >
-        //         {label}
-        //     </label>
-        //     {/* not sure why there is margin left being applied here */}
-        //     <div className="flex w-full gap-4 pr-2">
-        //         {textarea ? (
-        //             <textarea
-        //                 id={id}
-        //                 className={`${inputProps} overflow-y-scroll rounded-md resize-none input`}
-        //                 placeholder={placeholder}
-        //                 type="text"
-        //                 value={value}
-        //                 onChange={e => {
-        //                     handleSetField(id, e.target.value);
-        //                 }}
-        //                 required={required}
-        //             />
-        //         ) : (
-        //             <input
-        //                 id={id}
-        //                 className={`${inputProps} rounded-md input`}
-        //                 placeholder={placeholder}
-        //                 type="text"
-        //                 value={value}
-        //                 onChange={e => {
-        //                     handleSetField(id, e.target.value);
-        //                 }}
-        //                 required={required}
-        //             />
-        //         )}
-        //         <button size="icon" variant="ghost" onClick={handleRecording}>
-        //             <MicIcon
-        //                 className={`w-6 h-6 ${
-        //                     isRecording &&
-        //                     "animate-pulse text-red-600 dark:text-red-300"
-        //                 }`}
-        //             />
-        //         </button>
-        //     </div>
-        // </div>
     );
 };
-
-function MicIcon(props) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-            <line x1="12" x2="12" y1="19" y2="22" />
-        </svg>
-    );
-}
 
 export default React.memo(RecordingInput);

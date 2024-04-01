@@ -117,7 +117,7 @@ export default function Clients() {
     return (
         <>
             <div className="flex h-full items-center justify-center p-8">
-                <Card className="w-full max-w-2xl">
+                <Card className="max-w-2xl flex-1">
                     <CardHeader className="flex flex-row justify-between">
                         <CardTitle className="text-2xl">Clients</CardTitle>
                         <Dialog open={open} onOpenChange={setOpen}>
